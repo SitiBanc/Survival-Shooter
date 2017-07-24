@@ -3,16 +3,16 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 0.5f;
-    public int attackDamage = 10;
+    public float timeBetweenAttacks = 0.5f;     // The time in seconds between each attack.
+    public int attackDamage = 10;               // The amount of health taken away per attack.
 
 
     Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
     //EnemyHealth enemyHealth;
-    bool playerInRange;
-    float timer;
+    bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
+    float timer;                                // Timer for counting up to the next attack. (Keep everything in sync)
 
 
     void Awake ()
@@ -24,6 +24,7 @@ public class EnemyAttack : MonoBehaviour
     }
 
 
+    // Detecting if the player is within the attack range
     void OnTriggerEnter (Collider other)
     {
         if(other.gameObject == player)
@@ -44,15 +45,19 @@ public class EnemyAttack : MonoBehaviour
 
     void Update ()
     {
+        // Add the time since Update was last called to the timer.
         timer += Time.deltaTime;
 
-        if(timer >= timeBetweenAttacks && playerInRange/* && enemyHealth.currentHealth > 0*/)
+        // If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
+        if (timer >= timeBetweenAttacks && playerInRange/* && enemyHealth.currentHealth > 0*/)
         {
             Attack ();
         }
 
-        if(playerHealth.currentHealth <= 0)
+        // If the player has zero or less health...
+        if (playerHealth.currentHealth <= 0)
         {
+            // ... tell the animator the player is dead and activate the move -> idle transition
             anim.SetTrigger ("PlayerDead");
         }
     }
