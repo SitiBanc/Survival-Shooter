@@ -83,7 +83,8 @@ public class EnemyHealth : MonoBehaviour
         // Find the rigidbody component and make it kinematic (since we use Translate to sink the enemy).
         GetComponent<Rigidbody> ().isKinematic = true;
         isSinking = true;
-        //ScoreManager.score += scoreValue;
+        // score of ScoreManager is a static variable thus don't need a instance to use it 
+        ScoreManager.score += scoreValue;
         // After 2 seconds destory the enemy.
         Destroy(gameObject, 2f);
     }

@@ -4,6 +4,7 @@ using System.Collections;
 
 public class ScoreManager : MonoBehaviour
 {
+    // Staic variable used to store our gaming score
     public static int score;
 
 
